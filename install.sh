@@ -6,6 +6,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 CYAN='\033[0;36m'
+RED='\033[0;31m'
 BOLD='\033[1m'
 DIM='\033[2m'
 NC='\033[0m'
@@ -17,24 +18,31 @@ SOURCE_DIR="$SCRIPT_DIR/.claude/commands"
 
 # Header
 echo ""
-echo -e "  ${BOLD}AI BU Claude Commands${NC}"
-echo -e "  ${DIM}Red Hat AI Business Unit${NC}"
+echo -e "  ${BOLD}AI BU Claude Commands${NC}  ${DIM}12 slash commands for the work after the work${NC}"
 echo ""
 
-# Validate source
+# Validate source directory exists
 if [ ! -d "$SOURCE_DIR" ]; then
-    echo -e "  ${YELLOW}Could not find commands at${NC} ${DIM}$SOURCE_DIR${NC}"
-    echo -e "  Run this from the repo root."
+    echo -e "  ${RED}Error:${NC} Commands directory not found at ${DIM}$SOURCE_DIR${NC}"
+    echo -e "  Run this script from the repository root."
     exit 1
 fi
 
+# Validate source has commands
 available=$(find "$SOURCE_DIR" -name "*.md" -type f | wc -l | tr -d ' ')
-echo -e "  ${DIM}$available commands${NC} ${DIM}-> ${NC}${DIM}$COMMANDS_DIR${NC}"
-echo ""
+if [ "$available" -eq 0 ]; then
+    echo -e "  ${RED}Error:${NC} No .md command files found in ${DIM}$SOURCE_DIR${NC}"
+    exit 1
+fi
 
-mkdir -p "$COMMANDS_DIR"
+# Create target directory
+if ! mkdir -p "$COMMANDS_DIR" 2>/dev/null; then
+    echo -e "  ${RED}Error:${NC} Cannot create ${DIM}$COMMANDS_DIR${NC}"
+    echo -e "  Check your permissions on ${DIM}$HOME/.claude/${NC}"
+    exit 1
+fi
 
-# Command descriptions for post-install display
+# Command descriptions (shown during install)
 declare -A CMD_DESC
 CMD_DESC[what-next]="Find your highest-impact task right now"
 CMD_DESC[release-notes]="Generate release notes from git history"
@@ -50,70 +58,54 @@ CMD_DESC[tldr-repo]="5-minute briefing on an unfamiliar repo"
 CMD_DESC[write-docs]="Generate inline docs and markdown reference"
 
 # Install loop
-installed=()
-skipped=()
-overwritten=()
+installed=0
+skipped=0
+updated=0
 
 for cmd in "$SOURCE_DIR"/*.md; do
-    if [ -f "$cmd" ]; then
-        filename="$(basename "$cmd")"
-        target="$COMMANDS_DIR/$filename"
-        cmd_name="${filename%.md}"
+    [ -f "$cmd" ] || continue
 
-        if [ -f "$target" ]; then
-            if ! diff -q "$cmd" "$target" > /dev/null 2>&1; then
-                echo -e "  ${YELLOW}~${NC}  ${BOLD}/$cmd_name${NC} ${DIM}(yours differs)${NC}"
-                read -r -p "     Overwrite? [y/N] " response
-                case "$response" in
-                    [yY][eE][sS]|[yY])
-                        cp "$cmd" "$target"
-                        overwritten+=("$filename")
-                        echo -e "     ${GREEN}Updated${NC}"
-                        ;;
-                    *)
-                        skipped+=("$filename")
-                        echo -e "     ${BLUE}Kept yours${NC}"
-                        ;;
-                esac
-            else
-                skipped+=("$filename")
-            fi
+    filename="$(basename "$cmd")"
+    target="$COMMANDS_DIR/$filename"
+    cmd_name="${filename%.md}"
+    desc="${CMD_DESC[$cmd_name]:-}"
+
+    if [ -f "$target" ]; then
+        if ! diff -q "$cmd" "$target" > /dev/null 2>&1; then
+            echo -e "  ${YELLOW}~${NC}  /${BOLD}${cmd_name}${NC}  ${DIM}${desc}${NC}"
+            echo -e "     ${DIM}Your version differs from the repo version.${NC}"
+            read -r -p "     Overwrite? [y/N] " response
+            case "$response" in
+                [yY][eE][sS]|[yY])
+                    cp "$cmd" "$target"
+                    ((updated++))
+                    echo -e "     ${GREEN}Updated${NC}"
+                    ;;
+                *)
+                    ((skipped++))
+                    echo -e "     ${BLUE}Kept yours${NC}"
+                    ;;
+            esac
         else
-            cp "$cmd" "$target"
-            installed+=("$filename")
-            echo -e "  ${GREEN}+${NC}  ${BOLD}/$cmd_name${NC}"
+            ((skipped++))
         fi
+    else
+        cp "$cmd" "$target"
+        ((installed++))
+        echo -e "  ${GREEN}+${NC}  /${BOLD}${cmd_name}${NC}  ${DIM}${desc}${NC}"
     fi
 done
 
-# Results
-total=$(( ${#installed[@]} + ${#overwritten[@]} ))
+# Summary
+total=$((installed + updated))
 echo ""
 
 if [ $total -gt 0 ]; then
-    echo -e "  ${GREEN}Installed $total command(s).${NC}"
-else
+    echo -e "  ${GREEN}Done.${NC} Installed ${BOLD}$total${NC} command(s)."
+elif [ $skipped -gt 0 ]; then
     echo -e "  ${BLUE}All $available commands are up to date.${NC}"
 fi
 
 echo ""
-echo -e "  ${BOLD}Your commands:${NC}"
-echo ""
-
-for cmd in "$COMMANDS_DIR"/*.md; do
-    if [ -f "$cmd" ]; then
-        cmd_name="$(basename "${cmd%.md}")"
-        desc="${CMD_DESC[$cmd_name]:-}"
-        if [ -n "$desc" ]; then
-            printf "    ${CYAN}/%-24s${NC} ${DIM}%s${NC}\n" "$cmd_name" "$desc"
-        else
-            echo -e "    ${CYAN}/$cmd_name${NC}"
-        fi
-    fi
-done
-
-echo ""
 echo -e "  ${BOLD}Try first:${NC}  Open Claude Code and run ${CYAN}/what-next${NC}"
-echo -e "  ${DIM}It scans your open PRs, issues, and branches, then tells you${NC}"
-echo -e "  ${DIM}the single most impactful thing to work on right now.${NC}"
 echo ""
