@@ -1,246 +1,303 @@
 # ai-bu-claude-commands
 
-A collection of custom slash commands for Claude Code, built for the AI BU team at Red Hat.
+Slash commands for Claude Code built by the Red Hat AI BU team. Twelve commands that handle the work you actually do: release notes, demo prep, competitive analysis, announcements, retros, and more.
 
-These commands handle common tasks that come up in engineering work: writing release notes, prepping demos, explaining technical concepts to customers, running competitive analysis, turning PRs into blog posts, generating changelogs, summarizing discussion threads, and writing documentation.
+Each command is prompt-engineered with chain-of-thought reasoning, self-critique gates, and anti-pattern bans so the output looks like a senior engineer spent 30 minutes on it, not like an LLM wrote it.
 
 ## Installation
-
-Clone the repo and run the install script:
 
 ```bash
 git clone https://github.com/MarkellR-RedHat/ai-bu-claude-commands.git
 cd ai-bu-claude-commands
-chmod +x install.sh
 ./install.sh
 ```
 
-This copies the command files to `~/.claude/commands/`, which makes them available globally in Claude Code as slash commands. The installer will check for existing commands and ask before overwriting.
+The installer copies commands to `~/.claude/commands/` so they are available globally. It checks for existing commands and asks before overwriting.
 
-If you prefer to install them into a specific project, copy the `.claude/commands/` directory into your project root instead.
-
-### Manual install
-
-```bash
-cp .claude/commands/*.md ~/.claude/commands/
-```
+For project-scoped installation, copy the `.claude/commands/` directory into your project root instead.
 
 ## Commands
 
-### /release-notes
+| Command | What it does |
+|---------|-------------|
+| `/release-notes` | Generate release notes from a git ref range |
+| `/changelog` | Generate a CHANGELOG.md entry (Keep a Changelog format) |
+| `/demo-prep` | Structured demo prep with STAR-based talking points and fallback plans |
+| `/blog-from-pr` | Draft a blog post from a pull request |
+| `/explain-for-customer` | Rewrite technical concepts for non-technical audiences |
+| `/competitive-snapshot` | Competitive analysis grounded in public evidence |
+| `/summarize-thread` | Summarize a GitHub issue or PR discussion thread |
+| `/write-docs` | Generate inline docs and markdown reference from source code |
+| `/what-next` | Analyze your open work and tell you the highest-impact thing to do |
+| `/draft-announcement` | Draft an announcement for Slack, blog, social, and email at once |
+| `/retro` | Data-driven sprint retrospective from git history |
+| `/tldr-repo` | 5-minute briefing on any repo you have never seen before |
 
-Generate human-readable release notes from a git ref range. Provide a repo path, start ref, and end ref. The output groups changes by theme (features, fixes, improvements, breaking changes) and rewrites commit messages into plain language.
+## Examples
 
-```
-/release-notes /path/to/repo v1.2.0 v1.3.0
-```
+### /what-next
 
-### /demo-prep
-
-Generate a structured demo preparation document. Provide a topic or feature name. The output includes a prerequisites checklist, step-by-step script with talking points, fallback plans for when things break, and time estimates.
-
-```
-/demo-prep llm-d model serving on OpenShift
-```
-
-### /explain-for-customer
-
-Rewrite a technical concept or error message for a non-technical audience. Provide the term, error message, or concept. The output is accurate but jargon-free, suitable for support tickets, customer emails, or knowledge base articles.
-
-```
-/explain-for-customer OOMKilled error in Kubernetes pod
-```
-
-### /competitive-snapshot
-
-Produce a structured competitive analysis for a given product or project. The output covers strengths, weaknesses, how Red Hat's offering differs, and key takeaways. Grounded in facts, not marketing.
+Find the highest-impact thing to work on right now. Scans your open PRs, assigned issues, review requests, and uncommitted work, then ranks them using the Eisenhower Matrix.
 
 ```
-/competitive-snapshot vLLM
-```
-
-### /blog-from-pr
-
-Draft a blog post from a pull request. Provide a PR URL or number. Reads the diff and description, then writes a post covering what changed, why it matters, and how to use it. Targets an engineering audience.
-
-```
-/blog-from-pr https://github.com/org/repo/pull/42
-```
-
-### /changelog
-
-Generate a CHANGELOG.md entry following the Keep a Changelog format. Provide a repo path and version number. Optionally provide a git ref range.
-
-```
-/changelog /path/to/repo 1.4.0
-/changelog /path/to/repo 1.4.0 v1.3.0 v1.4.0
-```
-
-### /summarize-thread
-
-Summarize a long GitHub issue or PR discussion thread. Provide a GitHub URL. Returns a structured summary with key points, decisions, open questions, and action items.
-
-```
-/summarize-thread https://github.com/kubernetes-sigs/llm-d/issues/52
-```
-
-### /write-docs
-
-Generate documentation for a function, module, class, or API endpoint from its source code. Provide a file path, function name, or module name. Outputs both inline documentation (docstrings, JSDoc, etc.) and a markdown reference document.
-
-```
-/write-docs src/scheduler/router.go
-/write-docs MyClassName
-```
-
-## What Each Command Does (with examples)
-
-### Example: /release-notes
-
-**Input:**
-```
-/release-notes /home/user/projects/llm-d v0.1.0 v0.2.0
+/what-next
 ```
 
 **Output:**
+
 ```markdown
-# Release Notes: v0.1.0 to v0.2.0
+# What To Work On Next
 
-**Date range:** 2026-05-10 to 2026-06-15
-**Commits:** 34
-**Files changed:** 87
+## If you only have 30 minutes
+Merge PR #87 (prefix-aware routing). It has two approvals, CI is green,
+and @sarah and @david are blocked on it for the metrics integration.
 
-## New Features
-- Add prefix-aware routing for KV cache optimization, enabling
-  shared prompt prefixes to be routed to the same backend
-- Add Prometheus metrics endpoint exposing request latency,
-  queue depth, and backend health per model
+## Priority Queue
 
-## Bug Fixes
-- Fix goroutine leak in health checker when a backend becomes
-  unreachable and the context is not cancelled
-- Fix incorrect content-length header on streamed responses
-  causing some clients to hang
+### 1. Merge PR #87: prefix-aware routing
+- **Why now:** Two teammates are blocked. CI passed. Two approvals already in.
+- **Time estimate:** 15 minutes (address one nit, then merge)
+- **What "done" looks like:** PR merged, @sarah and @david unblocked
 
-## Performance Improvements
-- Reduce P99 scheduling latency from 12ms to 4ms by switching
-  from mutex-based locking to a lock-free ring buffer
+### 2. Review PR #91: health check refactor
+- **Why now:** @alex requested your review 3 days ago. Review queue is your
+  team's biggest bottleneck this sprint.
+- **Time estimate:** 30 minutes
+- **What "done" looks like:** Review submitted with actionable feedback
 
-## Breaking Changes
-- Remove deprecated v1alpha1 CRD fields (migrationGuide in PR #78)
+### 3. Finish inference pool validation (branch: feature/pool-validation)
+- **Why now:** Branch is 6 days old with 80% of the work done. Finishing
+  it now is cheaper than context-switching back later.
+- **Time estimate:** Half day
+- **What "done" looks like:** PR opened with passing tests
+
+## Parked Items
+- Issue #34 (docs cleanup): No one is blocked. Do it on a slow Friday.
+- Dependabot PRs: Batch them at end of week.
+
+## Heads Up
+Your branch feature/pool-validation has not been pushed in 4 days.
+If your laptop catches fire, that work is gone.
 ```
 
-### Example: /explain-for-customer
+### /draft-announcement
 
-**Input:**
+Generate an announcement for multiple channels at once. One command, four versions tuned for different audiences.
+
 ```
-/explain-for-customer OOMKilled error in Kubernetes pod
+/draft-announcement llm-d v0.3.0 ships prefix-aware routing and autoscaling
 ```
 
 **Output:**
+
 ```markdown
-## Summary
-Your application was shut down because it tried to use more memory
-than it was allowed.
+# Announcement: llm-d v0.3.0
 
-## Details
-The "OOMKilled" message means "Out of Memory, Killed." Every
-application running in your environment has a memory limit set by
-your team's configuration. When the application exceeds that limit,
-the system stops it automatically to protect other applications
-running alongside it.
+---
 
-Common causes:
-- The application is processing a larger workload than expected
-  (e.g., a bigger dataset or more concurrent users)
-- The memory limit is set too low for the application's normal
-  operation
-- There is a memory leak where the application gradually uses
-  more memory over time
+## Slack (Internal)
 
-Next steps:
-1. Check your application logs for what it was doing right before
-   the restart
-2. Ask your engineering team whether the memory limit (currently
-   set in the deployment config) needs to be increased
-3. If this happens repeatedly, it may indicate a bug that needs
-   investigation
+llm-d v0.3.0 is out. Two big additions: prefix-aware routing for KV cache
+reuse (35% lower time-to-first-token on shared-prefix workloads) and
+HPA-based autoscaling that scales inference pools to zero. Full release
+notes: [LINK]. Try it on your test cluster and file issues if anything
+breaks. :rocket:
 
-## What This Means for You
-- Your application restarted, which may have caused a brief
-  interruption in service
-- No data was lost on the platform side, but any in-progress
-  requests at the time of the restart may need to be retried
-- This is a recoverable situation and typically resolved by
-  adjusting configuration or fixing the underlying cause
+---
+
+## Blog Intro Paragraph
+
+Multi-tenant LLM inference wastes compute when identical prompt prefixes
+are re-processed across backends. llm-d v0.3.0 addresses this with
+prefix-aware routing, which hashes prompt prefixes and routes requests to
+backends that already have them cached. In benchmarks on shared-prefix
+workloads, median time-to-first-token dropped by 35%. This release also
+adds HPA-based autoscaling, allowing inference pools to scale to zero
+when idle and spin up on demand.
+
+---
+
+## Social Post
+
+llm-d v0.3.0: prefix-aware routing cuts time-to-first-token 35% on
+shared-prefix workloads. Plus scale-to-zero for inference pools. [LINK]
+
+---
+
+## Stakeholder Email
+
+llm-d v0.3.0 shipped today with two capabilities that directly reduce
+inference cost for multi-tenant deployments.
+
+Prefix-aware routing reuses cached prompt prefixes across requests,
+reducing median time-to-first-token by 35% on workloads where users
+share the same system prompt. HPA-based autoscaling lets inference
+pools scale to zero when idle, cutting compute costs during off-peak.
+
+The release is available now. Teams running llm-d on OpenShift can
+upgrade by updating their InferencePool CR. Migration guide is in
+the release notes.
 ```
 
-### Example: /blog-from-pr
+### /retro
 
-**Input:**
+Run a data-driven retrospective by analyzing actual git history. No sticky notes required.
+
 ```
-/blog-from-pr https://github.com/kubernetes-sigs/llm-d/pull/105
+/retro ./llm-d 2026-06-01..2026-06-14
 ```
 
 **Output:**
+
 ```markdown
-# Prefix-Aware Routing Lands in llm-d
+# Retrospective: llm-d
+**Period:** 2026-06-01 to 2026-06-14
+**Commits:** 47 | **PRs Merged:** 12 | **Contributors:** 5
 
-Large language model inference has a dirty secret: KV cache misses
-are expensive. Every time a request lands on a backend that has not
-seen the prompt prefix before, the model re-computes attention for
-the entire prefix. For long system prompts shared across thousands
-of requests, that wasted compute adds up fast.
+---
 
-## What Changed
+## What Went Well
 
-PR #105 introduces prefix-aware routing to the llm-d scheduler.
-The router now hashes incoming prompt prefixes and maintains an
-affinity map to backends that already have those prefixes cached.
+### Fast PR turnaround on the metrics stack
+**Evidence:** PRs #88, #89, #90 opened and merged within 24 hours each
+Clean, focused changes (under 200 lines each) with substantive review
+comments that caught two edge cases before merge.
 
-The key change is in `scheduler/router.go`:
+### Zero reverts this sprint
+**Evidence:** `git log --grep="revert"` returned nothing for this period
+Twelve PRs merged with no rollbacks. The team's pre-merge testing
+process is working.
 
-    func (r *Router) selectBackend(req *Request) *Backend {
-        prefixHash := hashPrefix(req.Prompt, r.prefixLength)
-        if backend, ok := r.affinityMap[prefixHash]; ok {
-            return backend
-        }
-        return r.leastLoaded()
-    }
+---
 
-When a matching backend is found, the request goes there. When
-not, it falls back to least-loaded selection, which means the
-first request with a new prefix still gets balanced normally.
+## What Was Painful
 
-## Why It Matters
+### PR #82 (autoscaler) was open for 11 days
+**Evidence:** Opened 2026-06-02, merged 2026-06-13
+**5 Whys Analysis:**
+1. PR was 1,200 lines across 28 files
+2. Combined the autoscaler feature with a refactor of the pool manager
+3. No design review before implementation started
+4. Root cause: No team norm on PR size limits or splitting strategy
 
-In benchmarks included in the PR, prefix-aware routing reduced
-median time-to-first-token by 35% for workloads with shared system
-prompts. For multi-tenant deployments where many users share the
-same base prompt, this eliminates redundant KV cache computation
-across backends.
+### Two hotfixes after the config migration merge
+**Evidence:** Commits a3f19e2 and b7c44d1 within 6 hours of PR #85 merge
+**5 Whys Analysis:**
+1. Config migration broke two edge cases in production
+2. Edge cases involved clusters with non-default label selectors
+3. Test fixtures only covered the default selector
+4. Root cause: No test matrix covering non-default configurations
 
-## Getting Started
+---
 
-Prefix-aware routing is off by default. Enable it in your
-InferencePool CR:
+## Action Items
 
-    spec:
-      routing:
-        prefixAware:
-          enabled: true
-          prefixLength: 256
+| # | Action | Owner | Deadline | Success Metric |
+|---|--------|-------|----------|----------------|
+| 1 | Add PR size warning at 400 lines (CI check) | TBD | June 28 | No PRs over 400 lines merged without explicit sign-off |
+| 2 | Require design doc for changes touching 3+ packages | @alex | July 1 | Template exists, first design doc filed |
+| 3 | Add non-default label selectors to test matrix | @sarah | June 21 | 3 new test cases covering edge selectors |
+
+---
+
+## Sprint Stats
+- Average PR size: 180 lines changed
+- Average PR lifetime: 2.8 days (open to merge)
+- Revert rate: 0/12 PRs
+- Hotfix count: 2
 ```
+
+### /tldr-repo
+
+Get up to speed on a repo you have never seen before, fast.
+
+```
+/tldr-repo https://github.com/kubernetes-sigs/llm-d
+```
+
+**Output:**
+
+```markdown
+# TL;DR: llm-d
+
+## What It Does
+A Kubernetes-native inference gateway that routes LLM requests to
+vLLM backends using prefix-aware, load-aware, and session-aware
+scheduling.
+
+## Tech Stack
+- **Language:** Go
+- **Framework:** Kubernetes controller-runtime, Gateway API
+- **Build:** Make, ko
+- **Deploy:** Kubernetes (Helm chart or raw manifests)
+
+## Architecture
+
+| Directory | Purpose |
+|-----------|---------|
+| `api/` | CRD type definitions (InferencePool, InferenceModel) |
+| `pkg/epp/` | Ext-proc plugin: the core routing engine |
+| `pkg/epp/scheduling/` | Scheduling algorithms (prefix, load, session) |
+| `config/` | Kustomize manifests for CRDs and RBAC |
+| `test/e2e/` | End-to-end test suite using kind clusters |
+
+Key files:
+- `pkg/epp/scheduling/scheduler.go` - where routing decisions happen
+- `api/v1alpha2/types.go` - the CRD schema everything else references
+
+## Get It Running
+
+Prerequisites: Go 1.22+, kind, kubectl, Helm
+
+    git clone https://github.com/kubernetes-sigs/llm-d.git
+    cd llm-d
+    make docker-build
+    kind create cluster
+    make deploy
+
+## How To Contribute
+
+- Branch from: `main`
+- PR process: Fork, branch, open PR against upstream main
+- Tests: `make test` (unit), `make test-e2e` (requires kind cluster)
+- CI checks: lint, unit tests, e2e tests, generated code freshness
+
+## Gotchas
+
+- The ext-proc plugin requires Envoy Gateway installed in the cluster.
+  Without it, the EPP pod starts but never receives traffic.
+- CRD updates require `make generate` and `make manifests` before
+  committing. CI will reject PRs with stale generated code.
+
+## The One Thing
+
+Everything flows through the ext-proc plugin in `pkg/epp/`. It sits
+in the Envoy data path and makes per-request routing decisions. If you
+understand how `scheduler.go` picks a backend, you understand the core
+of this project.
+```
+
+## How commands work
+
+Each `.md` file in `.claude/commands/` becomes a slash command. The filename (minus `.md`) is the command name. Use `$ARGUMENTS` in the prompt to capture user input.
+
+Example: `commands/my-command.md` becomes `/my-command`.
+
+## Writing good commands
+
+The commands in this repo follow a pattern that produces consistently high-quality output:
+
+1. **Role framing.** Tell the model who it is and what good looks like.
+2. **Input validation.** Handle missing, vague, and ambiguous input before doing anything.
+3. **Chain-of-thought steps.** Force sequential reasoning: gather, analyze, write, verify.
+4. **Self-critique gate.** A checklist the model must pass before outputting.
+5. **Anti-pattern bans.** Explicit "DO NOT" rules for the most common failure modes.
+6. **Output format.** Exact structure so the output is copy-paste ready.
+7. **Edge cases.** What to do when the input is trivial, massive, ambiguous, or missing.
 
 ## Contributing
 
-Add new commands as markdown files in `.claude/commands/`. Each file becomes a slash command named after the file (minus the `.md` extension). Use `$ARGUMENTS` in the prompt to reference user input.
-
-When writing prompts:
-- Include input validation (what if the user provides no arguments?)
-- Add a Rules section to prevent common failure modes
-- Specify the output format explicitly
-- Handle edge cases (empty results, missing data, invalid input)
+Add new commands as `.md` files in both `.claude/commands/` and `commands/`. Follow the pattern above. Run `./install.sh` to test locally.
 
 ## License
 
