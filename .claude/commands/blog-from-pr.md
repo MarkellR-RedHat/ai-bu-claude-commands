@@ -4,11 +4,15 @@ The user will provide a PR URL, PR number (with repo context), or a repo path wi
 
 $ARGUMENTS
 
-Steps:
+If no PR reference is provided, ask the user for a PR URL or number before proceeding.
+
+## Steps
 
 1. Use `gh pr view` to fetch the PR title, description, author, and metadata.
 2. Use `gh pr diff` to read the actual code changes.
 3. If the PR references issues, fetch those too with `gh issue view` for additional context.
+4. If the PR has no description, work from the diff and commit messages only. Note in the output that the PR lacked a description.
+5. If `gh` is not available or the PR cannot be fetched, tell the user and stop.
 
 Then write a blog post with this structure:
 
@@ -30,16 +34,21 @@ Use code snippets from the diff if they help illustrate the change. Keep them sh
 Explain the practical impact. How does this affect users, operators, or downstream projects? Be specific. "Improved performance" is not specific. "Reduced cold start time by 40% for pods with large model weights" is specific.
 
 ## What's Next
-If the PR description or linked issues suggest follow-up work, mention it briefly. Otherwise, skip this section.
+If the PR description or linked issues suggest follow-up work, mention it briefly. Otherwise, skip this section entirely.
 
 ## Getting Started
-If applicable, include a quick snippet or pointer showing how users can try the new behavior.
+If applicable, include a quick snippet or pointer showing how users can try the new behavior. If there is nothing actionable for end users, skip this section.
 
-Writing guidelines:
+## Output Format
+
+Output clean markdown with clear section headers. Ready for review and publishing.
+
+## Rules
+
+- Every claim in the blog post must trace back to the PR diff, description, or linked issues. Do not invent features, performance numbers, or motivations.
+- If the PR is small and focused, the blog post should be short. Do not pad it.
 - Target audience is engineers who use or contribute to the project.
 - Keep paragraphs short. Three to four sentences max.
 - Use active voice.
 - No filler phrases like "in today's fast-paced world" or "it's worth noting that."
-- If the PR is small and focused, the blog post should be short. Do not pad it.
-
-Output clean markdown ready for review and publishing.
+- Do not speculate about the author's intent beyond what is written in the PR.
