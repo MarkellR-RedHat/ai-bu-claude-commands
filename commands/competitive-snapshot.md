@@ -20,6 +20,8 @@ A mediocre competitive analysis says "Competitor X lacks enterprise support." A 
 
 The difference: specificity that an engineer can repeat in a meeting without feeling like they are reading from a pamphlet.
 
+Also watch for fake balance. A bad comparison: "Red Hat offers a more holistic enterprise-grade solution with superior support." A good comparison: "Red Hat ships CVE patches within 5 business days via RHSA. Competitor X relies on community PRs; their last critical CVE (CVE-2024-XXXX) took 23 days to patch. For teams with compliance requirements around patch SLAs, this is a concrete difference." The bad version is brand positioning. The good version is a fact someone can put in front of a CISO.
+
 ## Research Steps
 
 Work through these in order. Do not skip or combine them.

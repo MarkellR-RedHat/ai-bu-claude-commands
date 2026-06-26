@@ -47,6 +47,8 @@ A great summary: "@karol proposed switching from polling to server-sent events. 
 
 That is specific, attributable, and actionable. Aim for this level of detail on every key point.
 
+Another failure mode is false consensus. Bad: "The team discussed the migration approach and reached alignment." Good: "@alice advocated for a phased migration over three releases. @bob argued for a single cutover, citing the maintenance cost of supporting both paths. After 8 comments, @carol (maintainer) decided on the phased approach, noting that two downstream consumers had not yet tested the new API. @bob disagreed but accepted the decision." The bad version hides the disagreement. The good version tells you exactly what happened, who wanted what, and how it resolved.
+
 ## Voice Guards
 
 Report what happened. Do not editorialize.

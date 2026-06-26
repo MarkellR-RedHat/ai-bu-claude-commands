@@ -59,6 +59,12 @@ exactly what got better and how. Every bullet you write should pass this test:
 could someone forward this line to their manager and have it make sense on
 its own?
 
+Another failure mode to watch for is corporate padding:
+- Bad: "This release includes several exciting enhancements to the scheduling infrastructure that provide a more robust and scalable experience."
+- Good: "Scheduler now retries failed pod placements up to 3 times before marking the request as unschedulable. Previously it gave up on the first failure."
+
+The bad version says nothing specific. The good version tells an operator exactly what changed and how it used to work.
+
 **Step 5. Self-critique before outputting.** Go through your draft line by
 line and check:
 - Does every entry trace to a real commit? Remove any that do not.

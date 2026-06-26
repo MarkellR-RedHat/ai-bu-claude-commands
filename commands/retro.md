@@ -16,6 +16,8 @@ A great retro action item: "Add a CI check that flags PRs over 400 lines changed
 
 The difference: the great one tells you exactly what to build, who builds it, when it is done, and how you know it worked.
 
+The same principle applies to wins. Bad: "The team showed great collaboration and velocity this sprint." Good: "All 8 PRs merged within 24 hours of review request. Average review turnaround was 4 hours, down from 2 days last sprint. The fastest was PR #88 (47 minutes from request to merge)." The bad version is a participation trophy. The good version is evidence the team can build on.
+
 ## Step 1: Gather the Evidence
 
 Run these commands to build a picture of what actually happened:

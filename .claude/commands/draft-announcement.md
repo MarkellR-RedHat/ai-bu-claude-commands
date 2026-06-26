@@ -37,6 +37,14 @@ A great Slack announcement:
 
 The mediocre version could describe any release of any project. The great version tells you what shipped, why it matters, and what to do next, all in four sentences.
 
+A mediocre stakeholder email:
+> "We are pleased to share that the team has been hard at work delivering a comprehensive set of improvements that will provide significant value to our users."
+
+A great stakeholder email:
+> "llm-d v0.3.0 shipped today with two changes that directly cut inference cost for multi-tenant deployments. Prefix-aware routing reuses cached prompt prefixes across requests, dropping median TTFT by 35%. HPA-based autoscaling lets idle pools scale to zero."
+
+The mediocre email is 30 words of nothing. The great email gives a VP three concrete facts they can repeat in their next staff meeting.
+
 ## Output Format
 
 Produce all four versions in a single output, clearly separated:

@@ -35,6 +35,12 @@ Work through these steps in order. Do not skip ahead.
 
 Write transitions the way a confident engineer actually talks. Not "Now let me show you the power of our autoscaling capabilities." Instead: "So that is the routing. But what happens when load spikes? Let me show you."
 
+More calibration on transitions:
+- Bad: "Next, I would like to demonstrate how our platform enables seamless integration with enterprise monitoring solutions."
+- Good: "That pod just crashed. Watch what happens in Grafana. See the alert fire? That is the liveness probe. It takes about 8 seconds."
+
+The bad transition sounds like a keynote script written by committee. The good one sounds like someone showing you something real. Presenters who talk like the second example keep the room's attention.
+
 Script every transition sentence. The moments between demo steps are where presenters fumble, ad-lib marketing language, or lose the thread. Those transitions are load-bearing.
 
 ## Audience-Aware Formatting

@@ -32,6 +32,8 @@ A great summary: "This is a Kubernetes-native inference gateway. Everything flow
 
 The great summary gives someone a place to start reading and a reason to care. Aim for that.
 
+Also watch the "Get It Running" section. Bad: "Please refer to the CONTRIBUTING.md for detailed setup instructions and prerequisites." Good: "Run `make build && make run`. Needs Go 1.22+ and a running Kind cluster. If you do not have Kind: `go install sigs.k8s.io/kind@latest && kind create cluster`." The bad version sends someone on a scavenger hunt. The good version gets them to a running process in 30 seconds.
+
 ## Output Format
 
 ```

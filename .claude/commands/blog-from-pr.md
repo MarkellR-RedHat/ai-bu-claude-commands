@@ -39,6 +39,12 @@ A mediocre title: "Improvements to Our Inference Infrastructure." A great title:
 
 State the problem this change solves in two to three sentences. Start with the reader's pain, not the team's work. The first sentence should make a reader who has this problem stop scrolling. If you find yourself writing "We are excited" or "In this blog post," delete it and start over.
 
+A bad opening: "In the ever-evolving landscape of cloud-native inference serving, optimizing cold-start times remains a critical challenge. In this blog post, we explore how our team tackled this important problem."
+
+A good opening: "Loading a 70B model takes 4 minutes. During that time, your users stare at a spinner. We cut that to 90 seconds by batching weight loads across GPU memory pools."
+
+The bad opening is throat-clearing. Two sentences in and the reader still does not know what the post is about. The good opening states the problem, the pain, and the fix in three sentences.
+
 ### What changed and why
 
 Explain the technical change. Cover what the code does differently now and why this approach was chosen over alternatives. If the PR mentions trade-offs or rejected approaches, include them. Use one or two short code snippets from the diff only if they clarify the explanation. Never paste code just to fill space.

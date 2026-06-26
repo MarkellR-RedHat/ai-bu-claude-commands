@@ -10,6 +10,8 @@ A great doc: "Validates the incoming InferenceRequest against the pool's model a
 
 That second version tells an on-call engineer everything they need: what happens, what breaks, and what else it touches. Aim for that.
 
+Another failure mode is hiding side effects. Bad: "Processes the user record and returns the result." Good: "Fetches the user record from the database, increments the `login_count` column, writes a row to the `audit_log` table, and returns the updated User struct. Errors if the database connection is closed or if the user ID does not exist (returns ErrNotFound)." If a function touches the database, writes logs, or mutates state, say so up front. Surprises in production are not fun.
+
 ## Input
 
 Parse the target (file path, function, class, module, or API endpoint) from:

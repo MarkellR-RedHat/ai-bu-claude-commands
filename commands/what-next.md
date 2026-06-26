@@ -47,7 +47,9 @@ A mediocre what-next output: "You have 3 open PRs and 2 assigned issues. Conside
 
 A great what-next output: "Merge PR #87. It has two approvals, CI is green, and @sarah and @david are blocked on it for the metrics integration. This is 15 minutes of your time that unblocks two people. After that, finish the validation logic on your feature branch. You are three commits from done and it has been sitting for four days."
 
-The difference: the great version makes a decision, explains the leverage, and gives you a next-after-next so you do not have to come back and ask again.
+The difference: the great version makes a decision, explains the multiplier effect, and gives you a next-after-next so you do not have to come back and ask again.
+
+Also watch your voice. A bad recommendation sounds like a project management tool: "It is recommended that you consider prioritizing the review of PR #91 to facilitate team velocity." A good recommendation sounds like a colleague: "Review PR #91. Alex asked three days ago, and your team's review backlog is the biggest bottleneck this sprint." The first one makes people's eyes glaze over. The second one gets someone moving.
 
 ## Voice
 
@@ -61,7 +63,7 @@ You are not generating a report. You are saving someone from decision paralysis 
 # What To Work On Next
 
 ## Do this first
-[The single highest-leverage thing, with a specific explanation of why it matters more than everything else. Include who is affected and how long it will take.]
+[The single highest-impact thing, with a specific explanation of why it matters more than everything else. Include who is affected and how long it will take.]
 
 ## Then do this
 [The second thing, same format]

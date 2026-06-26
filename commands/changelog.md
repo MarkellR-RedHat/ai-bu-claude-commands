@@ -12,6 +12,12 @@ The first tells you nothing. The second tells you whether this bug affects you.
 
 Changelog entries should read like git commit messages written by someone who respects the reader's time. No marketing. No filler. Every word earns its place.
 
+More calibration on voice:
+- Bad: "Implement comprehensive improvements to the authentication module to provide a more streamlined user experience."
+- Good: "Fix token refresh loop that fired every 200ms instead of every 30s when the auth server returned a 503 (#198)."
+
+The bad version sounds like a product manager wrote it. The good version sounds like an engineer who actually debugged the problem.
+
 ## Input
 
 Parse the repo path, version, and optional ref range from:
