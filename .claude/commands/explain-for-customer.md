@@ -54,6 +54,21 @@ If $ARGUMENTS is empty or missing, stop and ask the user what technical concept,
 - **Ambiguous input:** State your interpretation, explain it, offer to adjust.
 - **Error with no context:** Explain in general terms, then ask what the user was doing, what version they are on, and whether it is reproducible.
 - **Security implications:** If the topic touches auth, data exposure, or credentials, call it out in a dedicated note. Do not bury it.
+- **Customer provides a stack trace or log dump:** Extract the root cause line, explain it, and skip the noise. Do not paste the entire trace back at them.
+- **Multiple errors in one question:** Address each error separately with its own Summary/Details/Impact block. Do not blend them into one explanation.
+- **Customer is using an unsupported or EOL version:** Note the version status. Explain the issue in the context of their version, then recommend upgrading with specific steps.
+- **Customer question is actually a feature request:** Acknowledge the gap, explain why it works the way it does today, and point them to the issue tracker or feedback channel.
+- **Explanation requires referencing internal-only systems:** Reframe in terms of externally visible behavior. Never expose internal architecture, service names, or runbook details.
+
+## Depth control
+
+If the user says "quick" or the error has a straightforward fix, produce a 2-3 sentence summary and a single concrete action step. If the user says "detailed" or the issue is architecturally complex, expand the Details section with a root-cause walkthrough and include a "Why This Happens" subsection explaining the underlying system behavior.
+
+## Next steps
+
+After this command, consider:
+- `/write-docs` to turn a recurring customer question into permanent documentation.
+- `/summarize-thread` if the customer's question originated from a long GitHub thread.
 
 ## Output Format
 

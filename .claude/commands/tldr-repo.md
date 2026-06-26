@@ -96,3 +96,18 @@ Before outputting, verify:
 - Monorepo: focus on top-level structure, list sub-projects with one-line descriptions, offer to deep-dive.
 - Empty or tiny repo: say so. Do not pad.
 - Archived or stale (no commits in over a year): note the last commit date, flag it may be unmaintained.
+- **Private repo the user has access to but `gh` clone fails:** Tell them what failed and suggest cloning manually. If they provide a local path instead, use that.
+- **Repo in a language you do not recognize:** State the language detection result, describe the file structure, and flag that your analysis of the code logic may be shallow. Focus on build system, docs, and tests.
+- **Repo with no build system or manifest file:** Say "No build system detected. This may be a collection of scripts, a documentation repo, or an early-stage project." Describe what you can see.
+- **Fork of a larger project:** Identify the upstream repo, note the fork relationship, and focus on what differs from upstream (extra commits, modified files, divergence point).
+- **Very large repo (1000+ files):** Do not try to read everything. Focus on top-level structure, entry points, and the most recently changed directories. State what you skipped.
+
+## Depth control
+
+If the user says "quick," produce only What It Does, Tech Stack, and The One Thing. Skip Architecture table, Get It Running, How To Contribute, and Gotchas. If the user says "deep" or "full," expand the Architecture section with key file descriptions, include dependency analysis, and add a "Code Health" section covering test coverage indicators, linter configs, and CI pipeline complexity.
+
+## Next steps
+
+After this command, consider:
+- `/write-docs` to document a specific function or module you discovered during the scan.
+- `/competitive-snapshot` if this repo is a competitor's project and you need a structured analysis.

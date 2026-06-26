@@ -85,10 +85,32 @@ List sources with URLs where possible. Date-stamp the analysis. Flag sections wh
 
 ## Edge Cases
 
-**Obscure competitor with limited public info**: State that information is limited. Work with what you have. A short, honest analysis beats a long fabricated one.
+**Obscure competitor with limited public info**: State that information is limited. Work with what you have. A short, honest analysis beats a long fabricated one. Flag confidence level as "Low" in the Sources section.
 
-**No Red Hat offering in this space**: Skip the comparison table. Note whether the gap matters and whether Red Hat has announced anything relevant.
+**No Red Hat offering in this space**: Skip the comparison table. Note whether the gap matters and whether Red Hat has announced anything relevant. This is a valid and important finding on its own.
 
 **Upstream project Red Hat contributes to** (Kubernetes, Knative, KServe, vLLM): Reframe from "competitor vs. Red Hat" to upstream trajectory and community health vs. what the downstream product adds. Note where Red Hat's upstream contributions are significant.
 
-**Acquired or EOL competitor**: Note the status. Analyze the last known state and what it means for users migrating away.
+**Acquired or EOL competitor**: Note the status. Analyze the last known state and what it means for users migrating away. Check for migration guides or successor projects.
+
+**User provides a product URL instead of a name**: Extract the product or company name from the URL and proceed. Use the URL as a starting point for research.
+
+**User names something that is not a competitor but a category** (e.g., "inference serving" instead of "vLLM"): Ask them to name a specific product or project. Do not generate a generic category overview.
+
+**User names an internal Red Hat project**: Clarify that competitive analysis is for external competitors. Offer to do a `/tldr-repo` on the internal project instead.
+
+**Multiple competitors in the same request**: Handle each separately under its own heading. If the user names more than three, ask them to prioritize. Doing five shallow analyses is worse than doing two thorough ones.
+
+**Rapidly evolving competitor** (new releases weekly, pivoting business model): Date-stamp every claim. Flag the analysis as having a short shelf life. Note the release cadence so the reader knows how fast things are moving.
+
+## Depth control
+
+If the user says "quick" or "before a meeting in 10 minutes," produce a compressed version: Overview (2 sentences), top 3 strengths, top 3 weaknesses, and 3 actionable takeaways. Skip the detailed Technical Architecture section. If the user says "deep" or "thorough," expand every section, include more source citations, add a timeline of major releases or pivots, and cover the competitor's community health (contributor diversity, bus factor, governance model).
+
+When the user provides qualifiers like "vs Red Hat for inference serving," use them to focus the analysis on that specific use case rather than covering the competitor's full product surface.
+
+## Next steps
+
+After this command, consider:
+- `/explain-for-customer` to turn a competitive finding into a customer-ready explanation.
+- `/demo-prep` if you need to demo a Red Hat alternative to what the competitor offers.

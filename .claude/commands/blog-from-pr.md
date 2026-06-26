@@ -82,10 +82,27 @@ DO NOT open with "In this blog post we will discuss/explore/examine..." DO NOT u
 ## Edge cases
 
 - **PR with no description:** Work from the diff and commit messages. Note at the top of your draft: "[Note: This PR had no description. The following is based on the diff and commit messages. Please verify accuracy with the author.]"
-- **Trivial one-line fix:** Write a two-to-three paragraph note, not a full blog post. Label it as a short-form update.
+- **Trivial one-line fix:** Write a two-to-three paragraph note, not a full blog post. Label it as a short-form update. Tell the user: "This change is small. A short-form update is more honest than stretching it into a full post."
 - **Massive diff (100+ files):** Do not try to cover everything. Focus on the key architectural decisions and the most important behavioral changes. State explicitly what you are omitting and why.
-- **PR not yet merged:** Note that the post covers a proposed change, not a shipped one. Adjust language accordingly.
+- **PR not yet merged:** Note that the post covers a proposed change, not a shipped one. Adjust language accordingly. Use "proposes" and "would" instead of "ships" and "does."
+- **User passes a GitHub URL instead of a PR reference:** Extract the org, repo, and PR number from the URL and proceed normally. Do not ask the user to reformat.
+- **User passes a file path instead of a PR reference:** Tell them you need a PR reference (URL, org/repo#number, or bare number inside a repo), not a file path. Stop and ask.
+- **PR in a monorepo:** Identify which sub-project or service the PR touches based on the file paths in the diff. Scope the blog post to that sub-project. Mention the monorepo context if it matters to the reader.
+- **PR has only test changes or CI config changes:** Tell the user this PR is infrastructure work and probably does not warrant a blog post. Offer to write a short internal summary instead.
+- **`gh` CLI is not authenticated or not installed:** Say what is missing. Provide the install/auth command (`gh auth login`). Stop.
+
+## Depth control
+
+If the user says "quick" or "short," produce a 2-3 paragraph update with title, problem, and fix. Skip the "what comes next" and "try it" sections. If the user says "deep" or "thorough," expand the "what changed and why" section with more code context, cover rejected alternatives in detail, and include a longer "try it" section with step-by-step instructions.
+
+When the user provides minimal input (just a PR number), produce a standard-length post. When the user provides detailed context (audience, publication target, key points to emphasize), use that context to shape the post's framing and depth.
 
 ## Output format
 
 Output clean markdown with the section headers above. Ready for a human reviewer to read, edit lightly, and publish. No front matter, no YAML metadata, no Hugo shortcodes unless the user asks for them.
+
+## Next steps
+
+After this command, consider:
+- `/draft-announcement` to turn the same PR into Slack, email, and social versions.
+- `/release-notes` if this PR is part of a larger release that needs notes.

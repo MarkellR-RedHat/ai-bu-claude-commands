@@ -45,6 +45,21 @@ For project-scoped installation, copy the `.claude/commands/` directory into you
 | `/tldr-repo` | You got dropped into a repo you have never seen and need to sound informed in 5 minutes. |
 | `/write-docs` | Code review says "please add docs" and you are staring at six parameters. |
 
+## Cross-tool workflow
+
+These commands are designed to chain together. Each command ends with a "Next steps" suggestion pointing you to the logical follow-up command. Common workflows:
+
+| You just... | Run next |
+|-------------|----------|
+| Merged a PR | `/release-notes` then `/draft-announcement` then `/blog-from-pr` |
+| Got a customer question | `/explain-for-customer` then `/write-docs` to prevent the question from recurring |
+| Finished a sprint | `/retro` then `/what-next` to turn action items into priorities |
+| Got dropped into a new repo | `/tldr-repo` then `/write-docs` on the functions you need to call |
+| Summarized a long thread | `/summarize-thread` then `/explain-for-customer` to relay the outcome |
+| Ran a competitive analysis | `/competitive-snapshot` then `/demo-prep` to show the Red Hat alternative |
+
+You do not have to follow the suggestions. They are there so you do not have to remember which commands exist when you are in the middle of something.
+
 ## What it looks like
 
 ### You need to figure out what to work on

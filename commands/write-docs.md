@@ -95,6 +95,26 @@ Realistic, runnable code with brief annotations.
 Caveats, performance, thread safety, related functions.
 ```
 
+## Edge Cases
+
+- **Target is a whole module or package, not a single function:** Produce a module-level overview first (purpose, key exports, dependency graph), then individual docs for each public function or class. If the module has more than 10 public symbols, list them in a table and ask the user which ones to document in detail.
+- **Target has no tests:** Note it. Document the expected behavior based on the implementation, but flag that without tests, your behavioral claims are unverified. Suggest writing tests as a follow-up.
+- **Target is auto-generated code (protobuf stubs, OpenAPI clients):** Say "This code is auto-generated. Document the source definition (proto file, OpenAPI spec) instead of the generated output." Point to the source file if you can find it.
+- **Target has existing docs that are outdated:** Compare the docs to the current implementation. List the discrepancies. Produce updated docs and mark what changed.
+- **Target is in a language you do not recognize:** State the language detection result and produce best-effort docs. Flag that accuracy may be lower and recommend review by someone fluent in the language.
+- **Code is obfuscated or minified:** Say "This code appears to be obfuscated or minified. Documentation requires the original source." Stop.
+- **Monorepo and the function name exists in multiple sub-projects:** List all matches with file paths and ask the user to pick one.
+
+## Depth control
+
+If the user says "quick" or the target is a small utility function, produce only the inline doc comment (Output 1). Skip the markdown reference. If the user says "full" or "detailed," produce both outputs plus an extended Examples section with multiple use cases covering normal operation, error handling, and edge cases.
+
+## Next steps
+
+After this command, consider:
+- `/explain-for-customer` if the documented function is customer-facing and needs a plain-language explanation.
+- `/tldr-repo` if you are documenting code in an unfamiliar repo and need broader context first.
+
 ## Grounding Rules
 
 - Base all documentation on source code you actually read. If you cannot find the code, say so and stop.

@@ -112,3 +112,18 @@ Verify each of these before producing the final output:
 - If there are no open PRs, issues, or recent activity, say "Your queue looks empty. Either you just finished a sprint, or your work is tracked somewhere I cannot see. Point me at a specific repo or project board and I will look again."
 - If there are more than 20 open items, focus on the top 5 and say "You have N open items. Here are the 5 that matter most right now. The rest can wait."
 - If uncommitted work exists, always mention it first. Unfinished work in the working tree is the easiest thing to lose.
+- **User works across multiple repos:** If $ARGUMENTS contains multiple repo paths or the user says "all my repos," scan each repo and merge the results into a single prioritized list. Label each item with its repo.
+- **`gh` CLI unavailable:** Produce recommendations from git data alone (branches, stashes, uncommitted work, recent commits). Note that PR and issue context is missing and the recommendations would be stronger with `gh` access.
+- **User has no git identity configured:** If `git config user.email` returns empty, ask who they are so you can filter their work from the team's work.
+- **All open items are low-priority:** Say so. "Nothing here is urgent. Pick the item closest to done and finish it, or use this time for deep work on something new." Do not manufacture urgency.
+- **Stale branches (no commits in 14+ days):** Flag them in the Heads Up section. Stale branches are either abandoned (delete them) or forgotten (finish them). Either way, they deserve attention.
+
+## Depth control
+
+If the user says "quick," produce only the "Do this first" section with a one-sentence justification. If the user says "full," produce the complete output with all sections, expanded reasoning for each priority choice, and a time-blocked plan for the day.
+
+## Next steps
+
+After this command, consider:
+- `/retro` if the prioritization reveals systemic patterns (too many open PRs, frequent reverts, review bottlenecks).
+- `/demo-prep` if the top priority is preparing for an upcoming demo or presentation.

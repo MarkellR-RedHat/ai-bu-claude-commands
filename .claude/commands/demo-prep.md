@@ -91,8 +91,30 @@ Produce clean, scannable markdown with these sections:
 
 Use headers, bold text, and short bullets. The presenter will skim this 5 minutes before walking on stage. That is not a metaphor. Design for that.
 
+## Edge Cases
+
+- **User provides a repo URL instead of a topic:** Clone the repo, inspect it, and ask what specific feature or workflow they want to demo. Do not guess.
+- **User says "demo our product" with no specifics:** Ask three questions: What feature? Who is the audience? How many minutes? Do not proceed without answers.
+- **No working environment available:** Build the entire prep doc around pre-recorded fallbacks. Note that every step needs a recording since there is no live environment to fall back to.
+- **Demo involves multiple services or a distributed system:** Add a "System State" section listing every service that must be running, its health check command, and the order they need to start. Include a single "nuclear reset" command that tears everything down and rebuilds it.
+- **Demo is for a product the presenter did not build:** Add extra context in each STAR block explaining what the audience should understand, not just what to click. The presenter needs to sound knowledgeable, not just operational.
+- **Audience is mixed (engineers and executives in the same room):** Structure the demo in two acts. Act 1: outcomes and dashboards (executives). Act 2: how it works under the hood (engineers). Let the presenter decide based on room energy whether to do both or cut Act 2.
+- **Demo slot is under 5 minutes (e.g., lightning talk):** Cut to 3 STAR blocks maximum. Every second counts. No preamble, no "let me set the context." Open with the moment.
+
+## Depth control
+
+If the user says "quick prep" or has less than an hour before the demo, produce a compressed version: The Moment, Prerequisites (5 Minutes Before), 3-4 STAR blocks, and the One-Page Cheat Sheet. Skip the detailed fallback analysis and timing breakdown. If the user says "full prep" or has a day or more, produce the complete document with stress-tested fallbacks, scripted transitions, and a rehearsal checklist.
+
+When the user provides a repo path or working directory, inspect the actual code and generate precise commands with real paths, real config values, and real expected output. When they provide only a topic, use generic but plausible commands and mark each one with "[VERIFY]."
+
 ## Grounding Rules
 
 - Base content on publicly known information. If you lack specific knowledge, say so and ask for docs or a repo link.
 - Do not invent CLI commands, API endpoints, or UI paths you are not confident exist. Mark anything uncertain with "[VERIFY]".
 - If the presenter provides a repo or working directory, inspect the actual code and config to generate accurate commands.
+
+## Next steps
+
+After this command, consider:
+- `/explain-for-customer` if someone in the demo audience asks a follow-up question you need to answer clearly.
+- `/draft-announcement` if the demo is for a feature launch and you need to announce it afterward.

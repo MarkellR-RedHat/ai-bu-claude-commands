@@ -94,3 +94,18 @@ Do not produce vague action items like "improve communication." Do not blame ind
 - No reverts or hotfixes: note as a positive signal, not a missing section.
 - No `gh`: produce from git data alone, note PR-level context is missing.
 - Single contributor: skip contributor breakdown, focus on work patterns.
+- **Monorepo with multiple teams:** Ask which sub-project or team to scope the retro to. Running a retro across unrelated sub-projects produces noise, not signal.
+- **Massive sprint (100+ commits, 20+ PRs):** Focus on the top 5 wins and top 3 pain points. State that you focused on the highest-signal items and offer to go deeper on any specific area.
+- **User provides a sprint name instead of dates:** Ask for the start and end dates. Sprint names are not universal and you cannot resolve them from git data alone.
+- **All commits are from a single day (crunch pattern):** Flag this prominently as a pain point and run 5 Whys on it. End-of-sprint crunches are a systemic issue worth surfacing.
+- **No merged PRs but many commits:** The team may be working without PRs. Note this as a process observation, not a judgment, and produce the retro from commit data.
+
+## Depth control
+
+If the user says "quick" or the sprint was small, produce a compressed retro: top 3 wins (one sentence each), top 2 pain points with root causes, and 2 action items. Skip the Sprint Stats table. If the user says "full" or the sprint was large, produce the complete retro with all sections, expanded 5 Whys chains, and contributor-level patterns.
+
+## Next steps
+
+After this command, consider:
+- `/what-next` to turn the retro's action items into prioritized work for the next sprint.
+- `/release-notes` if the sprint produced a release that needs documentation.

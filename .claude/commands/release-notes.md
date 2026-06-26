@@ -134,3 +134,18 @@ below.
 - **Unclear messages:** Write "Intent unclear from commit message" with the SHA. Do not fabricate intent.
 - **Squash-merged PRs:** Check the PR body via `gh pr view` for changes hidden behind a single commit.
 - **Single trivial commit:** Still produce the full structure with one bullet. Consistency matters.
+- **Monorepo with multiple services:** Ask which sub-project to scope the release notes to, or produce per-service sections if the user says "all." Use file paths in the diff to classify commits by sub-project.
+- **No tags and no ref range provided:** Use `$(git rev-list --max-parents=0 HEAD)..HEAD` with a prominent warning that the notes cover the entire history. Suggest the team start tagging releases.
+- **User provides a GitHub release URL instead of a ref range:** Extract the tag from the URL and determine the previous tag automatically.
+- **`gh` CLI unavailable:** Produce notes from git data alone. Note that PR-level context (descriptions, labels, linked issues) is missing and the output would be richer with `gh` access.
+- **All commits are from bots (dependabot, renovate):** Group them under a single "Dependency Updates" heading with a one-line summary per dependency bumped. Do not list each bot commit individually.
+
+## Depth control
+
+If the user says "quick" or the release is small (under 10 commits), produce a tight list with one-line entries and no Upgrade Notes unless breaking changes exist. If the user says "detailed" or the release is large, expand each entry with a sentence of context explaining why the change matters, and include a full Upgrade Notes section covering migration steps for any behavioral changes.
+
+## Next steps
+
+After this command, consider:
+- `/draft-announcement` to turn these notes into Slack, email, and social versions.
+- `/changelog` to produce a Keep a Changelog entry from the same ref range.

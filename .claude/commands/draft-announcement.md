@@ -93,3 +93,17 @@ Across all versions, verify:
 - If the announcement is for an internal-only change (not public), skip the social post and blog intro. Produce only Slack and stakeholder email, and note that the other versions were omitted because this is internal.
 - If the input is a bugfix or minor patch, keep all versions short. Not everything needs a four-channel announcement. Say "This is a minor update. Consider whether a Slack message alone is sufficient."
 - If the user provides a repo or PR reference, pull real details from it using `gh release view`, `gh pr view`, or similar commands rather than relying solely on what they typed.
+- **User provides only a version number with no product name:** Ask which product or project the version belongs to. Do not guess.
+- **Monorepo release covering multiple sub-projects:** Produce one announcement that covers the most impactful changes across sub-projects. Do not write four announcements for four sub-projects unless the user asks.
+- **No concrete impact numbers available:** Write qualitative impact ("reduces cold-start time for large models") instead of inventing numbers. Flag that real metrics would strengthen the announcement.
+- **`gh` CLI is not authenticated or not installed:** Say what is missing. Provide the install/auth command (`gh auth login`). Continue with whatever the user provided, but note the output would be stronger with repo data.
+
+## Depth control
+
+If the user says "quick" or provides minimal context, produce shorter versions: 2-sentence Slack, 2-sentence blog intro, the social post, and a 1-paragraph email. If the user says "full" or provides detailed context (audience, publication targets, key metrics), expand each version with more supporting detail and channel-specific framing.
+
+## Next steps
+
+After this command, consider:
+- `/blog-from-pr` to expand the blog intro into a full post if a PR drove the release.
+- `/release-notes` to produce the technical companion document for the announcement.

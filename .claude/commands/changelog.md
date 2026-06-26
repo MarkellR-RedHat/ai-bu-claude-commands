@@ -96,7 +96,23 @@ Use today's date unless the user specifies otherwise. Omit categories with zero 
 - **80+ commits:** Group by theme instead of listing individually. Note the summarization.
 - **No tags, no ref range:** Use full history with a prominent warning. Suggest tagging releases.
 - **Style mismatch:** Produce Keep a Changelog format and note the difference for the user.
+- **User provides a URL instead of a repo path:** If it is a GitHub URL, clone it to a temp directory with `gh repo clone` and proceed. If it is a non-GitHub URL, tell the user you need a local path or GitHub URL.
+- **User provides only a version with no repo path:** Use the current directory. If the current directory is not a git repo, ask for the path.
+- **Monorepo with multiple services:** Ask which sub-project to scope the changelog to, or offer to produce one changelog entry per sub-project that had changes in the ref range. Use file paths in the diff to classify commits by sub-project.
+- **Repo uses squash merges exclusively:** Each squash commit may hide multiple logical changes. Check the commit body (not just the subject line) for bullet lists or PR descriptions that describe multiple changes. Split them into separate entries.
+- **Repo uses conventional commits:** Detect the pattern (e.g., `feat:`, `fix:`, `chore:`) and use it to accelerate classification. Still rewrite for clarity; do not use the raw commit subject as the entry.
+- **Commits reference issues that no longer exist:** Include the reference anyway. The reader may have access you do not.
+
+## Depth control
+
+If the user says "quick" or provides a small ref range (under 10 commits), produce a tight changelog with minimal explanation per entry. If the user says "detailed" or the release is large (30+ commits), add brief context after each entry explaining why the change matters for someone upgrading. In the detailed mode, include an "Upgrade Notes" section at the bottom with migration steps for any breaking changes.
 
 ## Rules
 
 Do not use passive voice. Do not include merge commits. Do not pad thin releases with filler. Do not include internal jargon without explanation. Do not invent changes; every entry must trace to the git log. Do not use em dashes. Every entry exists to help someone decide whether to upgrade.
+
+## Next steps
+
+After this command, consider:
+- `/release-notes` to produce a stakeholder-facing version of these same changes.
+- `/draft-announcement` to broadcast the release across Slack, email, and social.

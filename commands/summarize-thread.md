@@ -71,6 +71,27 @@ Before you finalize, check each of these:
 - You did not summarize every comment in a long thread. You identified the five to ten moments that mattered.
 - No em dashes anywhere. Use commas, periods, semicolons, parentheses, or "and" instead.
 
+## Edge Cases
+
+- **No comments:** Summarize the original post and state "No discussion yet. This thread is waiting for input."
+- **200+ comments:** Focus on turning points and decisions. Nobody needs a play-by-play of a thread that long. State the total comment count and that you focused on the key moments.
+- **Thread is a flame war with no resolution:** Report the positions, name the participants, and state clearly that no resolution was reached. Do not impose false consensus.
+- **Thread is entirely bot comments (CI, linters, dependabot):** State "This thread contains only automated comments. No human discussion to summarize." and stop.
+- **User provides a URL to a private repo they have access to but `gh` auth does not cover:** Tell them exactly what failed and suggest `gh auth login` or `gh auth refresh`. Do not guess at thread content from the URL alone.
+- **Thread references other issues or PRs extensively:** Follow the first two or three references with `gh issue view` or `gh pr view` to get context. Beyond that, list the references without fetching to avoid rabbit holes.
+- **Thread is in a language other than English:** Summarize in English. Note the original language and flag that translation may lose nuance.
+- **User passes a Slack, Discourse, or non-GitHub URL:** Tell them this command works with GitHub issue and PR URLs only. Suggest pasting the thread content directly if they want it summarized.
+
+## Depth control
+
+If the user says "quick" or "tldr," produce only the TL;DR section (2-3 sentences) and the Decisions Made list. Skip Key Points, Open Questions, and Action Items. If the user says "full" or "detailed," produce every section and include direct quotes (attributed) for the most important statements.
+
+## Next steps
+
+After this command, consider:
+- `/explain-for-customer` if a customer needs to understand the outcome of this thread.
+- `/blog-from-pr` if the thread is on a PR that warrants a blog post.
+
 ## Output Format
 
 ```
