@@ -91,6 +91,7 @@ If the user says "quick" or "tldr," produce only the TL;DR section (2-3 sentence
 After this command, consider:
 - `/explain-for-customer` if a customer needs to understand the outcome of this thread.
 - `/blog-from-pr` if the thread is on a PR that warrants a blog post.
+- `/upstream-tracker` (from [ai-bu-upstream-tracker](https://github.com/MarkellR-RedHat/ai-bu-upstream-tracker)) if the thread reveals upstream changes worth monitoring.
 
 ## Output Format
 

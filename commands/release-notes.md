@@ -149,3 +149,4 @@ If the user says "quick" or the release is small (under 10 commits), produce a t
 After this command, consider:
 - `/draft-announcement` to turn these notes into Slack, email, and social versions.
 - `/changelog` to produce a Keep a Changelog entry from the same ref range.
+- `/shipped-digest` (from [ai-bu-shipped-digest](https://github.com/MarkellR-RedHat/ai-bu-shipped-digest)) to turn this release into a team-facing summary of what shipped.

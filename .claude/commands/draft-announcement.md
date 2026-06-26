@@ -107,3 +107,4 @@ If the user says "quick" or provides minimal context, produce shorter versions: 
 After this command, consider:
 - `/blog-from-pr` to expand the blog intro into a full post if a PR drove the release.
 - `/release-notes` to produce the technical companion document for the announcement.
+- `/style-check` (from [ai-bu-style-checker](https://github.com/MarkellR-RedHat/ai-bu-style-checker)) to catch filler and passive voice before you hit send.

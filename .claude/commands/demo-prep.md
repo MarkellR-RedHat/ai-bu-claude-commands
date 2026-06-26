@@ -118,3 +118,4 @@ When the user provides a repo path or working directory, inspect the actual code
 After this command, consider:
 - `/explain-for-customer` if someone in the demo audience asks a follow-up question you need to answer clearly.
 - `/draft-announcement` if the demo is for a feature launch and you need to announce it afterward.
+- `/slides` (from [ai-bu-slide-outliner](https://github.com/MarkellR-RedHat/ai-bu-slide-outliner)) if the demo needs a slide deck built around a single message.

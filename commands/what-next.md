@@ -127,3 +127,4 @@ If the user says "quick," produce only the "Do this first" section with a one-se
 After this command, consider:
 - `/retro` if the prioritization reveals systemic patterns (too many open PRs, frequent reverts, review bottlenecks).
 - `/demo-prep` if the top priority is preparing for an upcoming demo or presentation.
+- `/daily-briefing` (from [ai-bu-daily-briefing](https://github.com/MarkellR-RedHat/ai-bu-daily-briefing)) if you want a broader view of what happened across the team overnight.

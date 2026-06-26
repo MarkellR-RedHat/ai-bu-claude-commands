@@ -109,3 +109,4 @@ If the user says "quick" or the sprint was small, produce a compressed retro: to
 After this command, consider:
 - `/what-next` to turn the retro's action items into prioritized work for the next sprint.
 - `/release-notes` if the sprint produced a release that needs documentation.
+- `/status-report` (from [ai-bu-status-report](https://github.com/MarkellR-RedHat/ai-bu-status-report)) to generate the sprint summary for stakeholders.

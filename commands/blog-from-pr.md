@@ -106,3 +106,4 @@ Output clean markdown with the section headers above. Ready for a human reviewer
 After this command, consider:
 - `/draft-announcement` to turn the same PR into Slack, email, and social versions.
 - `/release-notes` if this PR is part of a larger release that needs notes.
+- `/style-check` (from [ai-bu-style-checker](https://github.com/MarkellR-RedHat/ai-bu-style-checker)) to catch jargon and passive voice before publishing.

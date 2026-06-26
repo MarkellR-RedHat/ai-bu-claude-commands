@@ -114,3 +114,4 @@ When the user provides qualifiers like "vs Red Hat for inference serving," use t
 After this command, consider:
 - `/explain-for-customer` to turn a competitive finding into a customer-ready explanation.
 - `/demo-prep` if you need to demo a Red Hat alternative to what the competitor offers.
+- `/competitive-watch` (from [ai-bu-competitive-watch](https://github.com/MarkellR-RedHat/ai-bu-competitive-watch)) to set up ongoing monitoring of this competitor's releases and activity.

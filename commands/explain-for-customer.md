@@ -69,6 +69,7 @@ If the user says "quick" or the error has a straightforward fix, produce a 2-3 s
 After this command, consider:
 - `/write-docs` to turn a recurring customer question into permanent documentation.
 - `/summarize-thread` if the customer's question originated from a long GitHub thread.
+- `/message-polisher` (from [ai-bu-message-polisher](https://github.com/MarkellR-RedHat/ai-bu-message-polisher)) to refine the tone before sending to the customer.
 
 ## Output Format
 
